@@ -28,6 +28,8 @@ const GlobalStyle = createGlobalStyle`
   
   html {
     direction: rtl;
+    height: 100%;
+    overflow-x: hidden;
   }
   
   body {
@@ -36,12 +38,28 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.textColor};
     transition: all 0.3s ease;
     line-height: 1.6;
+    height: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
   
   #root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+  
+  /* Ensure smooth scrolling */
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  /* Fix for iOS Safari */
+  @supports (-webkit-touch-callout: none) {
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 `;
 
@@ -49,11 +67,16 @@ const AppContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  position: relative;
 `;
 
 const MainContent = styled.main`
   flex: 1;
-  padding-bottom: 80px; // Space for bottom navigation
+  padding-bottom: 130px; // Increased space for larger bottom navigation
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
 `;
 
 // Themes

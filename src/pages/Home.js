@@ -5,6 +5,7 @@ import { getAsmaAllahOfTheDay, asmaAllahData } from '../data/asmaAllahData';
 import TasbihCounter from '../components/TasbihCounter';
 import CardOfTheDay from '../components/CardOfTheDay';
 import AsmaAllahCard from '../components/AsmaAllahCard';
+import specificDuasData from '../data/specific_duas.json';
 
 const fadeInUp = keyframes`
   from {
@@ -30,21 +31,29 @@ const GreetingSection = styled.section`
 `;
 
 const Greeting = styled.h1`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
   
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.6rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.4rem;
   }
 `;
 
 const TimeInfo = styled.p`
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: ${props => props.theme.textColor};
   opacity: 0.8;
   margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const AdhkarSection = styled.section`
@@ -52,12 +61,20 @@ const AdhkarSection = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: ${props => props.theme.textColor};
   margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
   
   &::after {
     content: '';
@@ -74,19 +91,28 @@ const SectionTitle = styled.h2`
 
 const AdhkarGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 `;
 
 const AdhkarCard = styled.div`
   background: ${props => props.theme.cardBackground};
   border: 1px solid ${props => props.theme.borderColor};
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.2rem;
   box-shadow: ${props => props.theme.shadow};
   transition: all 0.3s ease;
   cursor: pointer;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
   
   &:hover {
     transform: translateY(-5px);
@@ -95,11 +121,15 @@ const AdhkarCard = styled.div`
 `;
 
 const AdhkarText = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 0.95rem;
+  line-height: 1.7;
   color: ${props => props.theme.textColor};
   margin-bottom: 1rem;
-  text-align: center;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
 `;
 
 const AdhkarCount = styled.div`
@@ -148,6 +178,134 @@ const NavigationButton = styled.button`
   }
 `;
 
+const SpecificDuasSection = styled.section`
+  margin-bottom: 3rem;
+`;
+
+const DuasGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+`;
+
+const DuaCard = styled.div`
+  background: ${props => props.theme.cardBackground};
+  border: 1px solid ${props => props.theme.borderColor};
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: ${props => props.theme.shadow};
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: ${props => props.theme.primaryColor};
+  }
+`;
+
+const DuaTitle = styled.h3`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: ${props => props.theme.primaryColor};
+  margin-bottom: 1rem;
+  text-align: center;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const DuaText = styled.p`
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: ${props => props.theme.textColor};
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 500;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+`;
+
+const DuaCategory = styled.span`
+  background: ${props => props.theme.primaryColor}15;
+  color: ${props => props.theme.primaryColor};
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+  }
+`;
+
+const DuaSource = styled.div`
+  font-size: 0.8rem;
+  color: ${props => props.theme.textColor};
+  opacity: 0.7;
+  text-align: center;
+  margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+`;
+
+const DuaContext = styled.div`
+  font-size: 0.85rem;
+  color: ${props => props.theme.textColor};
+  opacity: 0.8;
+  line-height: 1.6;
+  text-align: center;
+  font-style: italic;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+`;
+
+const ViewAllButton = styled.button`
+  background: ${props => props.theme.primaryColor};
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 2rem auto 0;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    padding: 0.7rem 1.8rem;
+  }
+  
+  &:hover {
+    background: ${props => props.theme.primaryColor}dd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+  }
+`;
+
 const Home = () => {
   const [currentAdhkar, setCurrentAdhkar] = useState([]);
   const [greeting, setGreeting] = useState('');
@@ -155,6 +313,7 @@ const Home = () => {
   const [asmaOfTheDay, setAsmaOfTheDay] = useState(null);
   const [currentAsmaIndex, setCurrentAsmaIndex] = useState(0);
   const [showAllAsma, setShowAllAsma] = useState(false);
+  const [showAllDuas, setShowAllDuas] = useState(false);
 
   useEffect(() => {
     // Définir la salutation selon l'heure
@@ -183,6 +342,10 @@ const Home = () => {
     setCurrentAsmaIndex(getAsmaAllahOfTheDay().id - 1);
   }, []);
 
+  // Get first 3 specific duas for preview
+  const previewDuas = specificDuasData.specific_duas.slice(0, 3);
+  const allDuas = specificDuasData.specific_duas;
+
   return (
     <HomeContainer>
       <GreetingSection>
@@ -204,6 +367,26 @@ const Home = () => {
         </AdhkarGrid>
       </AdhkarSection>
 
+      <SpecificDuasSection>
+        <SectionTitle>ادعية مخصصة</SectionTitle>
+        <DuasGrid>
+          {(showAllDuas ? allDuas : previewDuas).map((dua) => (
+            <DuaCard key={dua.id}>
+              <DuaCategory>{dua.category}</DuaCategory>
+              <DuaTitle>{dua.title}</DuaTitle>
+              <DuaText>{dua.dua_text}</DuaText>
+              <DuaSource>المصدر: {dua.source}</DuaSource>
+              <DuaContext>{dua.context_and_benefit}</DuaContext>
+            </DuaCard>
+          ))}
+        </DuasGrid>
+        {!showAllDuas && (
+          <ViewAllButton onClick={() => setShowAllDuas(true)}>
+            عرض جميع الأدعية المخصصة
+          </ViewAllButton>
+        )}
+      </SpecificDuasSection>
+
       <TasbihSection>
         <SectionTitle>مسبحة الاستغفار الرقمية</SectionTitle>
         <TasbihCounter />
@@ -211,7 +394,7 @@ const Home = () => {
 
       <AsmaAllahSection>
         <SectionTitle>
-          {showAllAsma ? 'أسماء الله الحسنى' : 'اسم الله الحسنى لليوم'}
+          {showAllAsma ? 'أسماء الله الحسنى' : 'اسماء الله الحسنى '}
         </SectionTitle>
         
         {showAllAsma ? (
@@ -233,26 +416,14 @@ const Home = () => {
             {asmaOfTheDay && <AsmaAllahCard asma={asmaOfTheDay} />}
             <div style={{ textAlign: 'center', marginTop: '1rem' }}>
               <NavigationButton onClick={() => setShowAllAsma(true)}>
-                استكشف جميع الأسماء الحسنى
+                عرض جميع أسماء الله الحسنى
               </NavigationButton>
             </div>
           </>
         )}
-        
-        {showAllAsma && (
-          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <NavigationButton onClick={() => {
-              setShowAllAsma(false);
-              setCurrentAsmaIndex(getAsmaAllahOfTheDay().id - 1);
-            }}>
-              العودة لاسم اليوم
-            </NavigationButton>
-          </div>
-        )}
       </AsmaAllahSection>
 
       <CardOfTheDaySection>
-        <SectionTitle>نصيحة اليوم</SectionTitle>
         <CardOfTheDay />
       </CardOfTheDaySection>
     </HomeContainer>

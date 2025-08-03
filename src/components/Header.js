@@ -42,22 +42,27 @@ const Logo = styled.div`
 `;
 
 const LogoIcon = styled.div`
-  font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 8rem;
+  height: 8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+  }
+  
   &:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: rotate(5deg);
+    transform: scale(1.05);
+    
+    img {
+      filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
+    }
   }
 `;
 
@@ -220,40 +225,58 @@ const ModalOverlay = styled.div`
 
 const NotificationTitle = styled.h3`
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 1rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const NotificationContent = styled.div`
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.8;
   text-align: center;
   margin-bottom: 1.5rem;
   opacity: 0.95;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
 `;
 
 const NotificationSource = styled.div`
   color: #E1BEE7;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-align: center;
   font-style: italic;
   margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const CloseButton = styled.button`
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: 0.8rem 2rem;
+  padding: 0.7rem 1.8rem;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
   width: 100%;
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
   
   &:hover {
     background: rgba(255, 255, 255, 0.3);
@@ -288,22 +311,31 @@ const SearchForm = styled.form`
 
 const SearchTitle = styled.h3`
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 1rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const SearchInput = styled.input`
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
-  padding: 1rem;
-  font-size: 1.1rem;
+  padding: 0.9rem;
+  font-size: 1rem;
   color: white;
   outline: none;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
   
   &::placeholder {
     color: rgba(255, 255, 255, 0.7);
@@ -319,12 +351,17 @@ const SearchSubmitButton = styled.button`
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: 1rem 2rem;
+  padding: 0.9rem 1.8rem;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
   
   &:hover {
     background: rgba(255, 255, 255, 0.3);
@@ -349,11 +386,16 @@ const CategoryButton = styled.button`
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   color: white;
-  padding: 0.8rem;
+  padding: 0.7rem;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem;
+    font-size: 0.75rem;
+  }
   
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -395,33 +437,51 @@ const ResultItem = styled.div`
 
 const ResultTitle = styled.h4`
   color: #E1BEE7;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ResultContent = styled.p`
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   opacity: 0.9;
   margin-bottom: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const ResultCategory = styled.span`
   background: rgba(225, 190, 231, 0.2);
   color: #E1BEE7;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 500;
+  
+  @media (max-width: 768px) {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+  }
 `;
 
 const NoResults = styled.div`
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
   padding: 2rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 1.5rem;
+  }
 `;
 
 // Daily advice data - messages from Allah
@@ -662,8 +722,9 @@ const Header = () => {
       <HeaderContainer>
         <Nav>
           <Logo onClick={handleLogoClick}>
-            <LogoIcon>🕌</LogoIcon>
-            <LogoText>ذكرني</LogoText>
+            <LogoIcon>
+              <img src="/logo.png" alt="Logo" />
+            </LogoIcon>
           </Logo>
           
                                 <HeaderActions>

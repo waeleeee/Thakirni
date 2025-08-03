@@ -139,6 +139,18 @@ const TasbihCounter = () => {
     }
   }, []);
 
+  const triggerHapticFeedback = () => {
+    // Vibration for Android and other devices
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+    
+    // Haptic feedback for iOS devices
+    if (window.navigator && window.navigator.hapticFeedback) {
+      window.navigator.hapticFeedback.trigger('light');
+    }
+  };
+
   const handleClick = () => {
     const newCount = count + 1;
     setCount(newCount);
@@ -146,14 +158,8 @@ const TasbihCounter = () => {
     // Sauvegarder dans localStorage
     localStorage.setItem('tasbihCount', newCount.toString());
     
-    // Vibration (si supporté)
-    if (navigator.vibrate) {
-      navigator.vibrate(50);
-    }
-    
-    // Son (optionnel)
-    // const audio = new Audio('/sounds/click.mp3');
-    // audio.play().catch(() => {}); // Ignorer les erreurs si le son n'est pas disponible
+    // Trigger haptic feedback
+    triggerHapticFeedback();
   };
 
   const handleReset = () => {
