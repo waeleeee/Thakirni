@@ -28,7 +28,7 @@ const NavList = styled.ul`
   align-items: center;
   list-style: none;
   margin: 0;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   width: 100%;
   max-width: 500px;
 `;
@@ -37,7 +37,8 @@ const NavItem = styled.li`
   flex: 1;
   text-align: center;
   position: relative;
-  margin: 0 0.5rem;
+  margin: 0 0.2rem;
+  min-width: 0;
 `;
 
 const NavLink = styled(Link)`
@@ -104,13 +105,25 @@ const NavIcon = styled.div`
 `;
 
 const NavText = styled.span`
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: ${props => props.$active ? '700' : '500'};
   position: relative;
   z-index: 1;
   transition: all 0.3s ease;
   color: ${props => props.$active ? props.theme.primaryColor : props.theme.textColor};
-  line-height: 1.2;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  
+  @media (max-width: 480px) {
+    font-size: 0.55rem;
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 0.5rem;
+  }
   
   ${NavLink}:hover & {
     color: ${props => props.theme.primaryColor};

@@ -40,10 +40,18 @@ const StoryIcon = styled.div`
 `;
 
 const StoryTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const StoryContent = styled.div`
@@ -52,9 +60,19 @@ const StoryContent = styled.div`
   border-radius: 16px;
   padding: 2rem;
   box-shadow: ${props => props.theme.shadow};
-  line-height: 1.8;
-  font-size: 1.1rem;
+  line-height: 1.7;
+  font-size: 1rem;
   color: ${props => props.theme.textColor};
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    padding: 1.2rem;
+  }
 `;
 
 const QuranicVerse = styled.blockquote`

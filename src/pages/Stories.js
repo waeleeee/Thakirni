@@ -16,16 +16,32 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: ${props => props.theme.textColor};
   opacity: 0.8;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const StoriesGrid = styled.div`
@@ -53,18 +69,34 @@ const StoryContent = styled.div`
 `;
 
 const StoryTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: ${props => props.theme.textColor};
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const StoryDescription = styled.p`
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: ${props => props.theme.textColor};
   opacity: 0.8;
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const StoryFooter = styled.div`

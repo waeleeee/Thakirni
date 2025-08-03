@@ -26,16 +26,32 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: ${props => props.theme.textColor};
   margin-bottom: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: ${props => props.theme.textColor};
   opacity: 0.8;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const RandomStoryCard = styled.div`
@@ -66,12 +82,20 @@ const AyahText = styled.div`
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 2;
   text-align: center;
   font-weight: 500;
   color: #1e293b;
   border: 1px solid #e2e8f0;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const SurahInfo = styled.div`

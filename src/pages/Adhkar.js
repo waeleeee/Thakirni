@@ -15,7 +15,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   background: ${props => props.theme.gradient};
   -webkit-background-clip: text;
@@ -25,11 +25,11 @@ const Title = styled.h1`
   text-align: center;
   
   @media (max-width: 768px) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -120,13 +120,14 @@ const AdhkarCard = styled.div`
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: ${props => props.theme.shadow};
-  transition: all 0.3s ease;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   opacity: ${props => props.completed ? 0 : 1};
-  transform: ${props => props.completed ? 'scale(0.8) translateY(20px)' : 'scale(1) translateY(0)'};
+  transform: ${props => props.completed ? 'scale(0.6) translateY(40px) rotate(-5deg)' : 'scale(1) translateY(0) rotate(0deg)'};
   pointer-events: ${props => props.completed ? 'none' : 'auto'};
+  filter: ${props => props.completed ? 'blur(2px)' : 'blur(0px)'};
   
   @media (max-width: 768px) {
     padding: 1.2rem;
@@ -145,7 +146,7 @@ const AdhkarCard = styled.div`
   }
   
   &:hover {
-    transform: ${props => props.completed ? 'scale(0.8) translateY(20px)' : 'translateY(-4px)'};
+    transform: ${props => props.completed ? 'scale(0.6) translateY(40px) rotate(-5deg)' : 'translateY(-4px)'};
     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     border-color: ${props => props.theme.primaryColor};
     
@@ -155,7 +156,7 @@ const AdhkarCard = styled.div`
   }
   
   &:active {
-    transform: ${props => props.completed ? 'scale(0.8) translateY(20px)' : 'scale(0.98) translateY(-2px)'};
+    transform: ${props => props.completed ? 'scale(0.6) translateY(40px) rotate(-5deg)' : 'scale(0.98) translateY(-2px)'};
   }
   
   ${props => props.completed && `
@@ -276,7 +277,7 @@ const CompletionMessage = styled.div`
   font-weight: 600;
   margin-bottom: 2rem;
   box-shadow: 0 8px 25px ${props => props.theme.successColor}40;
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   
   @media (max-width: 768px) {
     font-size: 0.9rem;
@@ -284,8 +285,14 @@ const CompletionMessage = styled.div`
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { 
+      opacity: 0; 
+      transform: translateY(-30px) scale(0.8) rotate(-2deg); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1) rotate(0deg); 
+    }
   }
 `;
 

@@ -31,17 +31,17 @@ const GreetingSection = styled.section`
 `;
 
 const Greeting = styled.h1`
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
   
   @media (max-width: 768px) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -61,7 +61,7 @@ const AdhkarSection = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: ${props => props.theme.textColor};
   margin-bottom: 1.5rem;
@@ -69,11 +69,11 @@ const SectionTitle = styled.h2`
   position: relative;
   
   @media (max-width: 768px) {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   &::after {
@@ -121,14 +121,18 @@ const AdhkarCard = styled.div`
 `;
 
 const AdhkarText = styled.p`
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.85rem;
+  line-height: 1.6;
   color: ${props => props.theme.textColor};
   margin-bottom: 1rem;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
   }
 `;
 
@@ -215,28 +219,36 @@ const DuaCard = styled.div`
 `;
 
 const DuaTitle = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
   text-align: center;
   
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
   }
 `;
 
 const DuaText = styled.p`
-  font-size: 0.95rem;
-  line-height: 1.8;
+  font-size: 0.85rem;
+  line-height: 1.7;
   color: ${props => props.theme.textColor};
   margin-bottom: 1rem;
   text-align: center;
   font-weight: 500;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
-    line-height: 1.7;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
   }
 `;
 

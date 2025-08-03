@@ -15,16 +15,32 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: ${props => props.theme.textColor};
   opacity: 0.8;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const EmptyState = styled.div`
@@ -72,13 +88,21 @@ const CategorySection = styled.div`
 `;
 
 const CategoryTitle = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: ${props => props.theme.textColor};
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const CategoryIcon = styled.span`

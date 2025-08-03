@@ -19,9 +19,19 @@ const BackButton = styled(Link)`
   text-decoration: none;
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-bottom: 2rem;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.7rem;
+  }
   
   &:hover {
     background: ${props => props.theme.primaryColor}dd;
@@ -38,32 +48,58 @@ const StoryCard = styled.div`
 `;
 
 const StoryTitle = styled.h1`
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: ${props => props.theme.textColor};
   margin-bottom: 1.5rem;
   text-align: center;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const AyahText = styled.div`
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.2rem;
   margin-bottom: 1.5rem;
-  font-size: 1.3rem;
-  line-height: 2.5;
+  font-size: 1rem;
+  line-height: 2.2;
   text-align: center;
   font-weight: 500;
   color: #1e293b;
   border: 1px solid #e2e8f0;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 0.8rem;
+  }
 `;
 
 const SurahInfo = styled.div`
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: ${props => props.theme.primaryColor};
   font-weight: 600;
   margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const Section = styled.div`
@@ -71,19 +107,35 @@ const Section = styled.div`
 `;
 
 const SectionTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: ${props => props.theme.primaryColor};
   margin-bottom: 1rem;
   border-bottom: 2px solid ${props => props.theme.primaryColor};
   padding-bottom: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const SectionContent = styled.div`
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: ${props => props.theme.textColor};
   text-align: justify;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const WisdomSection = styled.div`
@@ -94,10 +146,18 @@ const WisdomSection = styled.div`
 `;
 
 const WisdomText = styled.div`
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: ${props => props.theme.textColor};
   white-space: pre-line;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
   
   strong {
     font-weight: bold;
@@ -105,12 +165,16 @@ const WisdomText = styled.div`
   }
   
   ol {
-    margin: 0.5rem 0;
+    margin: 0.3rem 0;
     padding-right: 1.5rem;
   }
   
   li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  p {
+    margin-bottom: 0.4rem;
   }
 `;
 
@@ -120,11 +184,21 @@ const FavoriteButton = styled.button`
   border: none;
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   margin: 0 auto;
   display: block;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+  }
   
   &:hover {
     background: ${props => props.isFavorite ? '#dc2626' : props.theme.primaryColor}dd;
