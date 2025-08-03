@@ -1,70 +1,146 @@
-# Getting Started with Create React App
+# ذكرني (Thakirni) - ملاذك الروحي الرقمي
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🌟 نظرة عامة على المشروع
 
-## Available Scripts
+**ذكرني** هو تطبيق إسلامي تفاعلي مصمم ليكون ملاذك الروحي الرقمي، يوفر تجربة متكاملة للأذكار والقصص الروحية مع تصميم عصري وميزات تفاعلية.
 
-In the project directory, you can run:
+## ✨ الميزات الرئيسية
 
-### `npm start`
+### 🏠 الصفحة الرئيسية
+- **تحية شخصية**: تحية ديناميكية حسب الوقت (صباح الخير، مساء الخير)
+- **أذكار الوقت**: عرض أذكار الصباح أو المساء حسب الوقت الحالي
+- **مسبحة رقمية**: عداد تفاعلي للاستغفار والتسبيح
+- **بطاقة اليوم**: درس أو حكمة يومية تتغير كل يوم
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📿 قسم الأذكار
+- **أذكار تفاعلية**: عدادات لكل ذكر مع شريط تقدم
+- **أذكار الصباح والمساء**: تصنيف حسب الوقت
+- **رسالة إتمام**: رسالة تشجيع عند إتمام جميع الأذكار
+- **حفظ التقدم**: حفظ التقدم في المتصفح
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 📖 قصص الأنبياء
+- **قصص تفاعلية**: تصميم يشبه الكتاب الإلكتروني
+- **آيات قرآنية**: تمييز الآيات القرآنية بتصميم خاص
+- **أدعية**: أدعية مرتبطة بكل قصة
+- **دروس مستفادة**: استخراج الدروس من كل قصة
 
-### `npm test`
+### ❤️ المفضلة
+- **كنزك الروحي**: حفظ الأذكار والقصص المفضلة
+- **تنظيم ذكي**: تصنيف حسب النوع
+- **إدارة سهلة**: إضافة وحذف بسهولة
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🌙 الوضع الليلي
+- **تصميم مريح**: وضع ليلي للعين
+- **تبديل سهل**: زر لتبديل الوضع
+- **حفظ التفضيل**: حفظ إعدادات المستخدم
 
-### `npm run build`
+## 🛠️ التقنيات المستخدمة
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React 19**: واجهة مستخدم تفاعلية
+- **Styled Components**: تصميم مكونات CSS-in-JS
+- **React Router**: التنقل بين الصفحات
+- **Context API**: إدارة الحالة العامة
+- **Local Storage**: حفظ البيانات محلياً
+- **RTL Support**: دعم كامل للغة العربية
+- **Responsive Design**: تصميم متجاوب
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 كيفية التشغيل
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### المتطلبات
+- Node.js (الإصدار 14 أو أحدث)
+- npm أو yarn
 
-### `npm run eject`
+### التثبيت والتشغيل
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+# تثبيت التبعيات
+npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# تشغيل التطبيق في وضع التطوير
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# بناء التطبيق للإنتاج
+npm run build
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# تشغيل الاختبارات
+npm test
+```
 
-## Learn More
+## 📱 دعم الأجهزة المحمولة
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **PWA Ready**: يمكن تثبيته كتطبيق محلي
+- **Touch Friendly**: تصميم مريح للأجهزة اللمسية
+- **Offline Support**: يعمل بدون إنترنت
+- **Vibration API**: اهتزاز عند النقر على المسبحة
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎨 التصميم
 
-### Code Splitting
+### الألوان
+- **الأزرق السماوي**: اللون الرئيسي (#667eea)
+- **الأخضر الفاتح**: اللون الثانوي (#2ecc71)
+- **الأحمر**: اللون المميز (#e74c3c)
+- **الرمادي الفاتح**: الخلفية (#f8f9fa)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### الخطوط
+- **Noto Kufi Arabic**: خط عربي واضح ومقروء
+- **أحجام متجاوبة**: تكيف مع جميع الشاشات
 
-### Analyzing the Bundle Size
+## 📂 هيكل المشروع
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+src/
+├── components/          # المكونات القابلة لإعادة الاستخدام
+│   ├── Header.js       # رأس الصفحة
+│   ├── BottomNav.js    # التنقل السفلي
+│   ├── TasbihCounter.js # المسبحة الرقمية
+│   ├── ProgressBar.js  # شريط التقدم
+│   └── CardOfTheDay.js # بطاقة اليوم
+├── pages/              # صفحات التطبيق
+│   ├── Home.js         # الصفحة الرئيسية
+│   ├── Adhkar.js       # صفحة الأذكار
+│   ├── Stories.js      # صفحة القصص
+│   ├── StoryDetail.js  # تفاصيل القصة
+│   └── Favorites.js    # صفحة المفضلة
+├── context/            # إدارة الحالة
+│   ├── ThemeContext.js # إدارة الوضع الليلي
+│   └── FavoritesContext.js # إدارة المفضلة
+├── data/               # البيانات
+│   └── adhkarData.js   # بيانات الأذكار
+└── App.js              # المكون الرئيسي
+```
 
-### Making a Progressive Web App
+## 🌍 دعم اللغات
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **العربية**: اللغة الرئيسية مع دعم كامل للـ RTL
+- **التشكيل**: دعم كامل للتشكيل العربي
+- **الأرقام العربية**: عرض الأرقام بالشكل العربي
 
-### Advanced Configuration
+## 🔧 التخصيص
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+يمكن تخصيص التطبيق بسهولة من خلال:
+- تعديل الألوان في ملفات الثيم
+- إضافة أذكار جديدة في `adhkarData.js`
+- تعديل القصص في `Stories.js`
+- إضافة ميزات جديدة
 
-### Deployment
+## 📄 الترخيص
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+هذا المشروع مفتوح المصدر ومتاح للاستخدام الشخصي والتعليمي.
 
-### `npm run build` fails to minify
+## 🤝 المساهمة
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+نرحب بالمساهمات! يمكنك:
+- الإبلاغ عن الأخطاء
+- اقتراح ميزات جديدة
+- تحسين التصميم
+- إضافة محتوى جديد
+
+## 📞 التواصل
+
+للاستفسارات أو الاقتراحات، يرجى التواصل عبر:
+- إنشاء issue في GitHub
+- إرسال email للمطور
+
+---
+
+**ذكرني** - لأن كل لحظة مع الله ثمينة 🌟
