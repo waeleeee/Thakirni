@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
 import PWAInstall from './components/PWAInstall';
+import OfflineStatus from './components/OfflineStatus';
 
 // Pages
 import Home from './pages/Home';
@@ -75,6 +76,7 @@ const AppContainer = styled.div`
 const MainContent = styled.main`
   flex: 1;
   padding-bottom: 130px; // Increased space for larger bottom navigation
+  padding-top: 0; // Will be adjusted by OfflineStatus component
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
@@ -115,21 +117,6 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
-  // Register service worker for PWA functionality
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then((registration) => {
-            console.log('SW registered: ', registration);
-          })
-          .catch((registrationError) => {
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
-    }
-  }, []);
-
   return (
     <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode, theme }}>
       <ThemeProvider theme={theme}>
@@ -137,6 +124,7 @@ function App() {
           <GlobalStyle />
           <Router>
             <AppContainer>
+              <OfflineStatus />
               <Header />
               <MainContent>
                 <Routes>

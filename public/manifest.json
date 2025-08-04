@@ -1,7 +1,6 @@
 {
   "short_name": "ذكرني",
-  "name": "ذكرني - ملاذك الروحي ",
-
+  "name": "ذكرني - ملاذك الروحي",
   "description": "تطبيق إسلامي تفاعلي للأذكار والقصص الروحية والآيات القرآنية - يعمل بدون إنترنت",
   "icons": [
     {
@@ -30,5 +29,33 @@
   "background_color": "#ffffff",
   "categories": ["lifestyle", "education", "religion"],
   "lang": "ar",
-  "dir": "rtl"
+  "dir": "rtl",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "الأذكار",
+      "short_name": "أذكار",
+      "description": "الوصول السريع للأذكار",
+      "url": "/adhkar",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "القصص",
+      "short_name": "قصص",
+      "description": "الوصول السريع للقصص",
+      "url": "/stories",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
