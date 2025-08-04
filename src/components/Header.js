@@ -9,12 +9,16 @@ import { quranAyahStoriesData } from '../data/quranAyahStoriesData';
 
 const HeaderContainer = styled.header`
   background: linear-gradient(90deg, #4A148C 0%, #7B1FA2 50%, #9C27B0 100%);
-  padding: 1.2rem 2rem;
+  padding: 0.8rem 1.5rem;
   box-shadow: 0 2px 20px rgba(74, 20, 140, 0.25);
   position: sticky;
   top: 0;
   z-index: 1000;
   border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+  }
 `;
 
 const Nav = styled.nav`
@@ -26,24 +30,29 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.div`
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   
   &:hover {
     transform: scale(1.02);
     transition: transform 0.2s ease;
   }
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    gap: 0.6rem;
+  }
 `;
 
 const LogoIcon = styled.div`
-  width: 8rem;
-  height: 8rem;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +72,11 @@ const LogoIcon = styled.div`
     img {
       filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
     }
+  }
+  
+  @media (max-width: 768px) {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 `;
 
