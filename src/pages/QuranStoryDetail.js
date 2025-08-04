@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFavorites } from '../context/FavoritesContext';
 import { getAyahStoryById } from '../data/quranAyahStoriesData';
@@ -45,6 +45,17 @@ const StoryCard = styled.div`
   border-radius: 16px;
   padding: 2rem;
   box-shadow: ${props => props.theme.shadow};
+  
+  ${props => props.$focused && `
+    border: 3px solid ${props.theme.primaryColor};
+    box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15);
+    animation: focusPulse 2s ease-in-out infinite;
+    
+    @keyframes focusPulse {
+      0%, 100% { box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 0 0 6px ${props.theme.primaryColor}30, 0 12px 30px rgba(0,0,0,0.2); }
+    }
+  `}
 `;
 
 const StoryTitle = styled.h1`
@@ -236,7 +247,24 @@ const formatWisdomText = (text) => {
 const QuranStoryDetail = () => {
   const { id } = useParams();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const location = useLocation();
+  const storyCardRef = useRef(null);
   const story = getAyahStoryById(id);
+
+  useEffect(() => {
+    // Handle search navigation and focus
+    if (location.state?.focusedQuranStoryId && location.state.focusedQuranStoryId === parseInt(id)) {
+      // Scroll to story card after a short delay
+      setTimeout(() => {
+        if (storyCardRef.current) {
+          storyCardRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 500);
+    }
+  }, [location.state, id]);
 
   if (!story) {
     return (
@@ -255,7 +283,10 @@ const QuranStoryDetail = () => {
     <DetailContainer>
       <BackButton to="/quran-stories">← العودة إلى آيات القرآن</BackButton>
       
-      <StoryCard>
+      <StoryCard 
+        ref={storyCardRef}
+        $focused={location.state?.focusedQuranStoryId === parseInt(id)}
+      >
         <StoryTitle>{story.title}</StoryTitle>
         
         <AyahText>{story.ayah_text}</AyahText>

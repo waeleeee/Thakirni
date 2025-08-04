@@ -575,18 +575,27 @@ const Header = () => {
 
   const performSearch = (query) => {
     const results = [];
-    const searchTerm = query.trim().toLowerCase();
+    const searchTerm = query.trim();
     
     if (!searchTerm) {
       setSearchResults([]);
       return;
     }
 
+    // Helper function for Arabic text search
+    const arabicSearch = (text, searchTerm) => {
+      if (!text || !searchTerm) return false;
+      return text.includes(searchTerm) || 
+             text.includes(searchTerm.replace(/[أإآ]/g, 'ا')) ||
+             text.includes(searchTerm.replace(/[ىي]/g, 'ي')) ||
+             text.includes(searchTerm.replace(/[ةه]/g, 'ه'));
+    };
+
     // Search in Adhkar
     adhkarData.adhkar.forEach((dhikr) => {
-      if (dhikr.text.toLowerCase().includes(searchTerm) || 
-          dhikr.explanation.toLowerCase().includes(searchTerm) ||
-          dhikr.source.toLowerCase().includes(searchTerm)) {
+      if (arabicSearch(dhikr.text, searchTerm) || 
+          arabicSearch(dhikr.explanation, searchTerm) ||
+          arabicSearch(dhikr.source, searchTerm)) {
         results.push({
           type: 'adhkar',
           id: dhikr.id,
@@ -600,9 +609,9 @@ const Header = () => {
 
     // Search in Asma Allah
     asmaAllahData.forEach((asma) => {
-      if (asma.name.toLowerCase().includes(searchTerm) || 
-          asma.meaning.toLowerCase().includes(searchTerm) ||
-          asma.reflection.toLowerCase().includes(searchTerm)) {
+      if (arabicSearch(asma.name, searchTerm) || 
+          arabicSearch(asma.meaning, searchTerm) ||
+          arabicSearch(asma.reflection, searchTerm)) {
         results.push({
           type: 'asma',
           id: asma.id,
@@ -616,10 +625,10 @@ const Header = () => {
 
     // Search in Stories
     storiesData.forEach((story) => {
-      if (story.title.toLowerCase().includes(searchTerm) || 
-          story.description.toLowerCase().includes(searchTerm) ||
-          story.prophet_name.toLowerCase().includes(searchTerm) ||
-          story.content.toLowerCase().includes(searchTerm)) {
+      if (arabicSearch(story.title, searchTerm) || 
+          arabicSearch(story.description, searchTerm) ||
+          arabicSearch(story.prophet_name, searchTerm) ||
+          arabicSearch(story.content, searchTerm)) {
         results.push({
           type: 'story',
           id: story.id,
@@ -633,9 +642,9 @@ const Header = () => {
 
     // Search in Quran Stories
     quranAyahStoriesData.forEach((quranStory) => {
-      if (quranStory.title.toLowerCase().includes(searchTerm) || 
-          quranStory.ayah_text.toLowerCase().includes(searchTerm) ||
-          quranStory.story_and_context.toLowerCase().includes(searchTerm)) {
+      if (arabicSearch(quranStory.title, searchTerm) || 
+          arabicSearch(quranStory.ayah_text, searchTerm) ||
+          arabicSearch(quranStory.story_and_context, searchTerm)) {
         results.push({
           type: 'quran',
           id: quranStory.id,
@@ -667,16 +676,34 @@ const Header = () => {
     // Navigate based on result type
     switch (result.type) {
       case 'adhkar':
-        navigate('/adhkar');
+        navigate('/adhkar', { 
+          state: { 
+            focusedAdhkarId: result.id 
+          } 
+        });
         break;
       case 'asma':
-        navigate('/');
+        // Navigate to home and set the specific Asma Allah to show
+        navigate('/', { 
+          state: { 
+            showAsmaAllah: true, 
+            selectedAsmaId: result.id 
+          } 
+        });
         break;
       case 'story':
-        navigate(`/stories/${result.id}`);
+        navigate(`/stories/${result.id}`, { 
+          state: { 
+            focusedStoryId: result.id 
+          } 
+        });
         break;
       case 'quran':
-        navigate(`/quran-stories/${result.id}`);
+        navigate(`/quran-stories/${result.id}`, { 
+          state: { 
+            focusedQuranStoryId: result.id 
+          } 
+        });
         break;
       default:
         break;

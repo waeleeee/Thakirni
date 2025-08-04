@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFavorites } from '../context/FavoritesContext';
 import { getAllAyahStories, getRandomAyahStory } from '../data/quranAyahStoriesData';
@@ -187,6 +187,18 @@ const StoryCard = styled(Link)`
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
+  
+  ${props => props.$focused && `
+    border: 3px solid ${props.theme.primaryColor};
+    box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+    animation: focusPulse 2s ease-in-out infinite;
+    
+    @keyframes focusPulse {
+      0%, 100% { box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 0 0 6px ${props.theme.primaryColor}30, 0 12px 30px rgba(0,0,0,0.2); }
+    }
+  `}
 `;
 
 const StoryCardTitle = styled.h3`
@@ -228,11 +240,36 @@ const FavoriteButton = styled.button`
 const QuranStories = () => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const [randomStory, setRandomStory] = useState(getRandomAyahStory());
+  const [focusedQuranStoryId, setFocusedQuranStoryId] = useState(null);
+  const location = useLocation();
+  const focusedCardRef = useRef(null);
   const allStories = getAllAyahStories();
 
   const handleRefreshRandom = () => {
     setRandomStory(getRandomAyahStory());
   };
+
+  useEffect(() => {
+    // Handle search navigation and focus
+    if (location.state?.focusedQuranStoryId) {
+      setFocusedQuranStoryId(location.state.focusedQuranStoryId);
+      
+      // Scroll to focused card after a short delay
+      setTimeout(() => {
+        if (focusedCardRef.current) {
+          focusedCardRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 500);
+      
+      // Remove focus after 5 seconds
+      setTimeout(() => {
+        setFocusedQuranStoryId(null);
+      }, 5000);
+    }
+  }, [location.state]);
 
   return (
     <QuranStoriesContainer>
@@ -270,7 +307,12 @@ const QuranStories = () => {
 
       <StoriesGrid>
         {allStories.map((story) => (
-          <StoryCard key={story.id} to={`/quran-stories/${story.id}`}>
+          <StoryCard 
+            key={story.id} 
+            to={`/quran-stories/${story.id}`}
+            $focused={focusedQuranStoryId === story.id}
+            ref={focusedQuranStoryId === story.id ? focusedCardRef : null}
+          >
             <StoryCardTitle>{story.title}</StoryCardTitle>
             <StoryCardAyah>{story.ayah_text.substring(0, 100)}...</StoryCardAyah>
             <StoryCardSurah>{story.surah_and_ayah_number}</StoryCardSurah>

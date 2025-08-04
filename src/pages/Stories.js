@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
 import { getAllStories } from '../data/storiesData';
 
@@ -62,6 +62,18 @@ const StoryCard = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
+  
+  ${props => props.$focused && `
+    border: 3px solid ${props.theme.primaryColor};
+    box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+    animation: focusPulse 2s ease-in-out infinite;
+    
+    @keyframes focusPulse {
+      0%, 100% { box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 0 0 6px ${props.theme.primaryColor}30, 0 12px 30px rgba(0,0,0,0.2); }
+    }
+  `}
 `;
 
 const StoryContent = styled.div`
@@ -140,8 +152,33 @@ const ReadMoreButton = styled(Link)`
 
 const Stories = () => {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const [focusedStoryId, setFocusedStoryId] = useState(null);
+  const location = useLocation();
+  const focusedCardRef = useRef(null);
 
   const stories = getAllStories();
+
+  useEffect(() => {
+    // Handle search navigation and focus
+    if (location.state?.focusedStoryId) {
+      setFocusedStoryId(location.state.focusedStoryId);
+      
+      // Scroll to focused card after a short delay
+      setTimeout(() => {
+        if (focusedCardRef.current) {
+          focusedCardRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 500);
+      
+      // Remove focus after 5 seconds
+      setTimeout(() => {
+        setFocusedStoryId(null);
+      }, 5000);
+    }
+  }, [location.state]);
 
   return (
     <StoriesContainer>
@@ -152,7 +189,11 @@ const Stories = () => {
 
       <StoriesGrid>
         {stories.map((story) => (
-          <StoryCard key={story.id}>
+          <StoryCard 
+            key={story.id}
+            $focused={focusedStoryId === story.id}
+            ref={focusedStoryId === story.id ? focusedCardRef : null}
+          >
             <StoryContent>
               <StoryTitle>{story.title}</StoryTitle>
               <StoryDescription>{story.description}</StoryDescription>

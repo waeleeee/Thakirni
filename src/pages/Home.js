@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { getCurrentTimeAdhkar } from '../data/adhkarData';
 import { getAsmaAllahOfTheDay, asmaAllahData } from '../data/asmaAllahData';
 import TasbihCounter from '../components/TasbihCounter';
@@ -326,33 +327,44 @@ const Home = () => {
   const [currentAsmaIndex, setCurrentAsmaIndex] = useState(0);
   const [showAllAsma, setShowAllAsma] = useState(false);
   const [showAllDuas, setShowAllDuas] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    // Définir la salutation selon l'heure
-    const hour = new Date().getHours();
-    let greetingText = '';
-    let timeText = '';
-
-    if (hour >= 5 && hour < 12) {
-      greetingText = 'صباح الخير';
-      timeText = 'أذكار الصباح';
-    } else if (hour >= 12 && hour < 17) {
-      greetingText = 'مساء الخير';
-      timeText = 'أذكار الظهر';
-    } else if (hour >= 17 && hour < 20) {
-      greetingText = 'مساء الخير';
-      timeText = 'أذكار العصر';
+    // Handle search navigation state
+    if (location.state?.showAsmaAllah && location.state?.selectedAsmaId) {
+      const selectedAsma = asmaAllahData.find(asma => asma.id === location.state.selectedAsmaId);
+      if (selectedAsma) {
+        setAsmaOfTheDay(selectedAsma);
+        setCurrentAsmaIndex(selectedAsma.id - 1);
+        setShowAllAsma(true);
+      }
     } else {
-      greetingText = 'مساء الخير';
-      timeText = 'أذكار المساء';
-    }
+      // Définir la salutation selon l'heure
+      const hour = new Date().getHours();
+      let greetingText = '';
+      let timeText = '';
 
-    setGreeting(greetingText);
-    setTimeInfo(timeText);
-    setCurrentAdhkar(getCurrentTimeAdhkar().slice(0, 3)); // Afficher seulement 3 adhkar
-    setAsmaOfTheDay(getAsmaAllahOfTheDay());
-    setCurrentAsmaIndex(getAsmaAllahOfTheDay().id - 1);
-  }, []);
+      if (hour >= 5 && hour < 12) {
+        greetingText = 'صباح الخير';
+        timeText = 'أذكار الصباح';
+      } else if (hour >= 12 && hour < 17) {
+        greetingText = 'مساء الخير';
+        timeText = 'أذكار الظهر';
+      } else if (hour >= 17 && hour < 20) {
+        greetingText = 'مساء الخير';
+        timeText = 'أذكار العصر';
+      } else {
+        greetingText = 'مساء الخير';
+        timeText = 'أذكار المساء';
+      }
+
+      setGreeting(greetingText);
+      setTimeInfo(timeText);
+      setCurrentAdhkar(getCurrentTimeAdhkar().slice(0, 3)); // Afficher seulement 3 adhkar
+      setAsmaOfTheDay(getAsmaAllahOfTheDay());
+      setCurrentAsmaIndex(getAsmaAllahOfTheDay().id - 1);
+    }
+  }, [location.state]);
 
   // Get first 3 specific duas for preview
   const previewDuas = specificDuasData.specific_duas.slice(0, 3);

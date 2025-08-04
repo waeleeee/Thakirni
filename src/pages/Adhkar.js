@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { getMorningAdhkar, getEveningAdhkar } from '../data/adhkarData';
 import ProgressBar from '../components/ProgressBar';
 
@@ -166,6 +167,18 @@ const AdhkarCard = styled.div`
       transform: scaleX(1);
     }
   `}
+  
+  ${props => props.$focused && `
+    border: 3px solid ${props.theme.primaryColor};
+    box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+    animation: focusPulse 2s ease-in-out infinite;
+    
+    @keyframes focusPulse {
+      0%, 100% { box-shadow: 0 0 0 4px ${props.theme.primaryColor}20, 0 8px 25px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 0 0 6px ${props.theme.primaryColor}30, 0 12px 30px rgba(0,0,0,0.2); }
+    }
+  `}
 `;
 
 const AdhkarText = styled.p`
@@ -301,6 +314,9 @@ const Adhkar = () => {
   const [adhkarProgress, setAdhkarProgress] = useState({});
   const [showCompletion, setShowCompletion] = useState(false);
   const [completedAdhkar, setCompletedAdhkar] = useState(new Set());
+  const [focusedAdhkarId, setFocusedAdhkarId] = useState(null);
+  const location = useLocation();
+  const focusedCardRef = useRef(null);
 
   const morningAdhkar = getMorningAdhkar();
   const eveningAdhkar = getEveningAdhkar();
@@ -320,14 +336,34 @@ const Adhkar = () => {
   };
 
   useEffect(() => {
-    // Initialize progress to zero for fresh start each session
-    const initialProgress = {};
-    currentAdhkar.forEach(adhkar => {
-      initialProgress[adhkar.id] = 0;
-    });
-    setAdhkarProgress(initialProgress);
-    setCompletedAdhkar(new Set()); // Reset completed adhkar
-  }, [activeCategory]);
+    // Handle search navigation and focus
+    if (location.state?.focusedAdhkarId) {
+      setFocusedAdhkarId(location.state.focusedAdhkarId);
+      
+      // Scroll to focused card after a short delay
+      setTimeout(() => {
+        if (focusedCardRef.current) {
+          focusedCardRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 500);
+      
+      // Remove focus after 5 seconds
+      setTimeout(() => {
+        setFocusedAdhkarId(null);
+      }, 5000);
+    } else {
+      // Initialize progress to zero for fresh start each session
+      const initialProgress = {};
+      currentAdhkar.forEach(adhkar => {
+        initialProgress[adhkar.id] = 0;
+      });
+      setAdhkarProgress(initialProgress);
+      setCompletedAdhkar(new Set()); // Reset completed adhkar
+    }
+  }, [activeCategory, location.state]);
 
   useEffect(() => {
     // Vérifier si tous les adhkar sont complétés
@@ -440,6 +476,8 @@ const Adhkar = () => {
             <AdhkarCard 
               key={adhkar.id} 
               completed={isCompleted}
+              $focused={focusedAdhkarId === adhkar.id}
+              ref={focusedAdhkarId === adhkar.id ? focusedCardRef : null}
               onClick={() => handleCardClick(adhkar.id)}
               style={{
                 opacity: shouldDisappear ? 0 : 1,
