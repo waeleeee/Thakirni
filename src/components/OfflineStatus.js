@@ -34,49 +34,33 @@ const OfflineIcon = styled.span`
   font-size: 16px;
 `;
 
-const InstallHint = styled.div`
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-top: 4px;
-  font-size: 12px;
-  line-height: 1.4;
-`;
-
 const OfflineStatus = () => {
   const { isOnline, wasOffline } = useOnlineStatus();
   const [showBanner, setShowBanner] = React.useState(false);
 
   React.useEffect(() => {
-    if (!isOnline) {
-      setShowBanner(true);
-    } else if (wasOffline) {
-      // Show online message briefly
+    // Only show banner when connection status changes
+    if (wasOffline && isOnline) {
+      // Show brief message when coming back online
       setShowBanner(true);
       setTimeout(() => setShowBanner(false), 3000);
-    } else {
+    } else if (!isOnline && wasOffline) {
+      // Don't show persistent offline banner
       setShowBanner(false);
     }
   }, [isOnline, wasOffline]);
 
+  // Don't show anything if offline
+  if (!isOnline) return null;
+
+  // Only show when coming back online
   if (!showBanner) return null;
 
   return (
     <OfflineBanner isOnline={isOnline} show={showBanner}>
       <OfflineMessage>
-        <OfflineIcon>
-          {isOnline ? '✅' : '📱'}
-        </OfflineIcon>
-        {isOnline ? (
-          'تم استعادة الاتصال بالإنترنت'
-        ) : (
-          <>
-            <span>أنت غير متصل بالإنترنت</span>
-            <InstallHint>
-              💡 نصيحة: قم بتثبيت التطبيق للاستخدام بدون إنترنت
-            </InstallHint>
-          </>
-        )}
+        <OfflineIcon>✅</OfflineIcon>
+        <span>تم استعادة الاتصال بالإنترنت</span>
       </OfflineMessage>
     </OfflineBanner>
   );

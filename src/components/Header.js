@@ -837,7 +837,7 @@ const Header = () => {
         <Nav>
           <Logo onClick={handleLogoClick}>
             <LogoIcon>
-              <img src="/logo.png" alt="Logo" />
+              <img src="/logo512.png" alt="ذكرني" />
             </LogoIcon>
           </Logo>
           
