@@ -35,35 +35,8 @@ const OfflineIcon = styled.span`
 `;
 
 const OfflineStatus = () => {
-  const { isOnline, wasOffline } = useOnlineStatus();
-  const [showBanner, setShowBanner] = React.useState(false);
-
-  React.useEffect(() => {
-    // Only show banner when connection status changes
-    if (wasOffline && isOnline) {
-      // Show brief message when coming back online
-      setShowBanner(true);
-      setTimeout(() => setShowBanner(false), 3000);
-    } else if (!isOnline && wasOffline) {
-      // Don't show persistent offline banner
-      setShowBanner(false);
-    }
-  }, [isOnline, wasOffline]);
-
-  // Don't show anything if offline
-  if (!isOnline) return null;
-
-  // Only show when coming back online
-  if (!showBanner) return null;
-
-  return (
-    <OfflineBanner isOnline={isOnline} show={showBanner}>
-      <OfflineMessage>
-        <OfflineIcon>✅</OfflineIcon>
-        <span>تم استعادة الاتصال بالإنترنت</span>
-      </OfflineMessage>
-    </OfflineBanner>
-  );
+  // Completely disabled - never show any banner
+  return null;
 };
 
 export default OfflineStatus; 

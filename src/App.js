@@ -9,7 +9,6 @@ import { useState } from 'react';
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
 import PWAInstall from './components/PWAInstall';
-import OfflineStatus from './components/OfflineStatus';
 
 // Pages
 import Home from './pages/Home';
@@ -124,7 +123,6 @@ function App() {
           <GlobalStyle />
           <Router>
             <AppContainer>
-              <OfflineStatus />
               <Header />
               <MainContent>
                 <Routes>
