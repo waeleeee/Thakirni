@@ -1,4 +1,4 @@
-const CACHE_NAME = 'thakirni-offline-v2';
+const CACHE_NAME = 'thakirni-offline-v3';
 const STATIC_CACHE = 'thakirni-static-v2';
 const DYNAMIC_CACHE = 'thakirni-dynamic-v2';
 

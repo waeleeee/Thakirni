@@ -307,6 +307,54 @@ const StorySectionContent = styled.div`
   }
 `;
 
+const VideoSection = styled.div`
+  background: ${props => props.theme.cardBackground};
+  border: 1px solid ${props => props.theme.borderColor};
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: ${props => props.theme.shadow};
+  text-align: center;
+`;
+
+const VideoTitle = styled.h3`
+  margin-bottom: 1.5rem;
+  color: ${props => props.theme.primaryColor};
+  font-size: 1.2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+`;
+
+const VideoContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+  }
+`;
+
+const VideoIframe = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+`;
+
 const StoryFooter = styled.div`
   display: flex;
   justify-content: center;
@@ -336,6 +384,21 @@ const StoryDetail = () => {
   const contentRef = useRef(null);
 
   const story = getStoryById(id);
+
+  // Helper function to convert YouTube URL to embed URL
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url) return '';
+    
+    // Handle different YouTube URL formats
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}`;
+    }
+    
+    return url;
+  };
 
   useEffect(() => {
     // Handle search navigation and focus
@@ -378,6 +441,21 @@ const StoryDetail = () => {
         $focused={location.state?.focusedStoryId === parseInt(id)}
         dangerouslySetInnerHTML={{ __html: story.content }} 
       />
+
+      {story.video_url && (
+        <VideoSection>
+          <VideoTitle>🎬 شاهد قصة {story.prophet_name} - رحلة ملهمة من الإيمان والثبات</VideoTitle>
+          <VideoContainer>
+            <VideoIframe
+              src={getYouTubeEmbedUrl(story.video_url)}
+              title={`قصة ${story.prophet_name}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </VideoContainer>
+        </VideoSection>
+      )}
 
       <StoryFooter>
         <FavoriteButton

@@ -151,6 +151,27 @@ const ReadMoreButton = styled(Link)`
   }
 `;
 
+const VideoPreview = styled.div`
+  margin: 1rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid ${props => props.theme.primaryColor};
+`;
+
+const VideoIframe = styled.iframe`
+  width: 100%;
+  height: 150px;
+  border: none;
+  display: block;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+`;
+
 const Stories = () => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const [focusedStoryId, setFocusedStoryId] = useState(null);
@@ -158,6 +179,21 @@ const Stories = () => {
   const focusedCardRef = useRef(null);
 
   const stories = getAllStories();
+
+  // Helper function to convert YouTube URL to embed URL
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url) return '';
+    
+    // Handle different YouTube URL formats
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}`;
+    }
+    
+    return url;
+  };
 
   useEffect(() => {
     // Handle search navigation and focus
@@ -200,6 +236,18 @@ const Stories = () => {
               <StoryTitle>{story.title}</StoryTitle>
               <StoryDescription>{story.description}</StoryDescription>
               
+              {story.video_url && (
+                <VideoPreview>
+                  <VideoIframe
+                    src={getYouTubeEmbedUrl(story.video_url)}
+                    title={`قصة ${story.prophet_name}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </VideoPreview>
+              )}
+              
               <StoryFooter>
                 <FavoriteButton
                   isFavorite={isFavorite('stories', story.id)}
@@ -211,9 +259,11 @@ const Stories = () => {
                   {isFavorite('stories', story.id) ? 'محفوظ' : 'حفظ'}
                 </FavoriteButton>
                 
-                <ReadMoreButton to={`/stories/${story.id}`} onClick={(e) => e.stopPropagation()}>
-                  اقرأ المزيد
-                </ReadMoreButton>
+                <ButtonGroup>
+                  <ReadMoreButton to={`/stories/${story.id}`} onClick={(e) => e.stopPropagation()}>
+                    اقرأ المزيد
+                  </ReadMoreButton>
+                </ButtonGroup>
               </StoryFooter>
             </StoryContent>
           </StoryCard>
