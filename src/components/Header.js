@@ -6,6 +6,11 @@ import { adhkarData } from '../data/adhkarData';
 import { asmaAllahData } from '../data/asmaAllahData';
 import { storiesData } from '../data/storiesData';
 import { quranAyahStoriesData } from '../data/quranAyahStoriesData';
+import SearchIcon from './icons/SearchIcon';
+import NotificationIcon from './icons/NotificationIcon';
+import PrayerIcon from './icons/PrayerIcon';
+import BookIcon from './icons/BookIcon';
+import QuranIcon from './icons/QuranIcon';
 
 const HeaderContainer = styled.header`
   background: linear-gradient(90deg, #4A148C 0%, #7B1FA2 50%, #9C27B0 100%);
@@ -147,32 +152,65 @@ const ActionButton = styled.button`
   }
 `;
 
-const NotificationButton = styled(ActionButton)`
-  &::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 8px;
-    height: 8px;
-    background: #E1BEE7;
-    border-radius: 50%;
-    border: 2px solid white;
-    animation: ${props => props.$hasNotification ? 'pulse 2s infinite' : 'none'};
+const NotificationButton = styled.button`
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  
+  ${props => props.$hasNotification && `
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0.3rem;
+      right: 0.3rem;
+      width: 0.8rem;
+      height: 0.8rem;
+      background: #ff4757;
+      border-radius: 50%;
+      border: 2px solid white;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  `}
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
   }
   
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.2);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: white;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover svg {
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    width: 2.5rem;
+    height: 2.5rem;
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
     }
   }
 `;
@@ -183,9 +221,44 @@ const ThemeToggle = styled(ActionButton)`
   }
 `;
 
-const SearchButton = styled(ActionButton)`
+const SearchButton = styled.button`
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  
   &:hover {
-    transform: translateY(-2px) scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+  }
+  
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: white;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover svg {
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    width: 2.5rem;
+    height: 2.5rem;
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
   }
 `;
 
@@ -615,7 +688,7 @@ const Header = () => {
           id: dhikr.id,
           title: `أذكار ${dhikr.category === 'morning' ? 'الصباح' : 'المساء'}`,
           content: dhikr.text.substring(0, 150) + '...',
-          category: '📿 الأذكار',
+          category: 'الأذكار',
           fullData: dhikr
         });
       }
@@ -631,7 +704,7 @@ const Header = () => {
           id: asma.id,
           title: asma.name,
           content: asma.meaning.substring(0, 150) + '...',
-          category: '🕌 أسماء الله',
+          category: 'أسماء الله',
           fullData: asma
         });
       }
@@ -648,7 +721,7 @@ const Header = () => {
           id: story.id,
           title: story.title,
           content: story.description,
-          category: '📖 القصص',
+          category: 'القصص',
           fullData: story
         });
       }
@@ -664,7 +737,7 @@ const Header = () => {
           id: quranStory.id,
           title: quranStory.title,
           content: quranStory.ayah_text.substring(0, 150) + '...',
-          category: '📜 القرآن',
+          category: 'القرآن',
           fullData: quranStory
         });
       }
@@ -770,14 +843,14 @@ const Header = () => {
           
                                 <HeaderActions>
              <SearchButton onClick={handleSearchClick}>
-               🔍
+               <SearchIcon size={20} color="white" />
              </SearchButton>
              
              <NotificationButton 
                onClick={handleNotificationClick}
                $hasNotification={hasNotification}
              >
-               🔔
+               <NotificationIcon size={20} color="white" hasNotification={hasNotification} />
              </NotificationButton>
            </HeaderActions>
         </Nav>
@@ -815,32 +888,37 @@ const Header = () => {
                   autoFocus
                 />
                                <SearchSubmitButton type="submit" disabled={!searchQuery.trim()}>
-                  🔍 بحث
+                  <SearchIcon size={16} color="white" style={{ marginRight: '8px' }} />
+                  بحث
                 </SearchSubmitButton>
                                <SearchCategories>
                   <CategoryButton type="button" onClick={() => {
                     setSearchQuery('أذكار الصباح');
                     performSearch('أذكار الصباح');
                   }}>
-                    📿 الأذكار
+                    <PrayerIcon size={16} color="white" style={{ marginRight: '8px' }} />
+                    الأذكار
                   </CategoryButton>
                   <CategoryButton type="button" onClick={() => {
                     setSearchQuery('قصص الأنبياء');
                     performSearch('قصص الأنبياء');
                   }}>
-                    📖 القصص
+                    <BookIcon size={16} color="white" style={{ marginRight: '8px' }} />
+                    القصص
                   </CategoryButton>
                   <CategoryButton type="button" onClick={() => {
                     setSearchQuery('أسماء الله الحسنى');
                     performSearch('أسماء الله الحسنى');
                   }}>
-                    🕌 أسماء الله
+                    <SearchIcon size={16} color="white" style={{ marginRight: '8px' }} />
+                    أسماء الله
                   </CategoryButton>
                   <CategoryButton type="button" onClick={() => {
                     setSearchQuery('آيات قرآنية');
                     performSearch('آيات قرآنية');
                   }}>
-                    📜 القرآن
+                    <QuranIcon size={16} color="white" style={{ marginRight: '8px' }} />
+                    القرآن
                   </CategoryButton>
                 </SearchCategories>
                 
@@ -853,7 +931,13 @@ const Header = () => {
                        >
                          <ResultTitle>{result.title}</ResultTitle>
                          <ResultContent>{result.content}</ResultContent>
-                         <ResultCategory>{result.category}</ResultCategory>
+                         <ResultCategory>
+                           {result.type === 'adhkar' && <PrayerIcon size={12} color="#E1BEE7" style={{ marginRight: '4px' }} />}
+                           {result.type === 'asma' && <SearchIcon size={12} color="#E1BEE7" style={{ marginRight: '4px' }} />}
+                           {result.type === 'story' && <BookIcon size={12} color="#E1BEE7" style={{ marginRight: '4px' }} />}
+                           {result.type === 'quran' && <QuranIcon size={12} color="#E1BEE7" style={{ marginRight: '4px' }} />}
+                           {result.category}
+                         </ResultCategory>
                        </ResultItem>
                      ))}
                    </SearchResults>

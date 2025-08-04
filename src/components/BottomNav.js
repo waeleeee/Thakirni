@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import HomeIcon from './icons/HomeIcon';
+import PrayerIcon from './icons/PrayerIcon';
+import BookIcon from './icons/BookIcon';
+import QuranIcon from './icons/QuranIcon';
+import HeartIcon from './icons/HeartIcon';
+
+
 
 const BottomNavContainer = styled.nav`
   position: fixed;
@@ -92,15 +99,49 @@ const NavIcon = styled.div`
   border-radius: 50%;
   background: ${props => props.$active ? 'rgba(139, 0, 0, 0.1)' : 'transparent'};
   
+  svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    stroke: ${props => props.$active ? props.theme.primaryColor : props.theme.textColor};
+    fill: none;
+    transition: all 0.3s ease;
+  }
+  
   ${NavLink}:hover & {
     transform: scale(1.1);
     background: rgba(139, 0, 0, 0.05);
+    
+    svg {
+      stroke: ${props => props.theme.primaryColor};
+    }
   }
   
   ${NavLink}[$active="1"] & {
-    transform: scale(1.15);
-    filter: drop-shadow(0 2px 4px rgba(139, 0, 0, 0.3));
-    background: rgba(139, 0, 0, 0.15);
+    background: rgba(139, 0, 0, 0.1);
+    
+    svg {
+      stroke: ${props => props.theme.primaryColor};
+    }
+  }
+  
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 45px;
+    
+    svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
   }
 `;
 
@@ -150,33 +191,28 @@ const BottomNav = () => {
   const navItems = [
     { 
       path: '/', 
-      icon: '🏠', 
-      text: 'الرئيسية',
-      altIcon: '🏛️'
+      icon: HomeIcon, 
+      text: 'الرئيسية'
     },
     { 
       path: '/adhkar', 
-      icon: '📿', 
-      text: 'الأذكار',
-      altIcon: '🕌'
+      icon: PrayerIcon, 
+      text: 'الأذكار'
     },
     { 
       path: '/stories', 
-      icon: '📖', 
-      text: 'القصص',
-      altIcon: '📚'
+      icon: BookIcon, 
+      text: 'القصص'
     },
     { 
       path: '/quran-stories', 
-      icon: '📜', 
-      text: 'آيات القرآن',
-      altIcon: '🕋'
+      icon: QuranIcon, 
+      text: 'آيات القرآن'
     },
     { 
       path: '/favorites', 
-      icon: '❤️', 
-      text: 'المفضلة',
-      altIcon: '⭐'
+      icon: HeartIcon, 
+      text: 'المفضلة'
     }
   ];
 
@@ -185,6 +221,7 @@ const BottomNav = () => {
       <NavList>
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
+          const IconComponent = item.icon;
           return (
             <NavItem key={item.path}>
               <NavLink 
@@ -193,7 +230,7 @@ const BottomNav = () => {
               >
                 <ActiveIndicator $active={isActive} />
                 <NavIcon $active={isActive}>
-                  {isActive ? item.altIcon : item.icon}
+                  <IconComponent />
                 </NavIcon>
                 <NavText $active={isActive}>
                   {item.text}
