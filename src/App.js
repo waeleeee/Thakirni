@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { ThemeContext } from './context/ThemeContext';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 // Components
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
+import PWAInstall from './components/PWAInstall';
 
 // Pages
 import Home from './pages/Home';
@@ -114,6 +115,21 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
+  // Register service worker for PWA functionality
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  }, []);
+
   return (
     <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode, theme }}>
       <ThemeProvider theme={theme}>
@@ -134,6 +150,7 @@ function App() {
                 </Routes>
               </MainContent>
               <BottomNav />
+              <PWAInstall />
             </AppContainer>
           </Router>
         </FavoritesProvider>

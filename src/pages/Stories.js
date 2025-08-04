@@ -57,6 +57,7 @@ const StoryCard = styled.div`
   box-shadow: ${props => props.theme.shadow};
   transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
   
   &:hover {
     transform: translateY(-5px);
@@ -193,6 +194,7 @@ const Stories = () => {
             key={story.id}
             $focused={focusedStoryId === story.id}
             ref={focusedStoryId === story.id ? focusedCardRef : null}
+            onClick={() => window.location.href = `/stories/${story.id}`}
           >
             <StoryContent>
               <StoryTitle>{story.title}</StoryTitle>
@@ -201,12 +203,15 @@ const Stories = () => {
               <StoryFooter>
                 <FavoriteButton
                   isFavorite={isFavorite('stories', story.id)}
-                  onClick={() => toggleFavorite('stories', story)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite('stories', story);
+                  }}
                 >
                   {isFavorite('stories', story.id) ? 'محفوظ' : 'حفظ'}
                 </FavoriteButton>
                 
-                <ReadMoreButton to={`/stories/${story.id}`}>
+                <ReadMoreButton to={`/stories/${story.id}`} onClick={(e) => e.stopPropagation()}>
                   اقرأ المزيد
                 </ReadMoreButton>
               </StoryFooter>
